@@ -14,6 +14,15 @@ Connecting the purple BME680 module board to SPI:
 | SCLK     | "SCL"      | GPIO 11 (Pin 23) |
 | CS       | "CS"       | GPIO 8 (Pin 24)  |
 
+In I2C:
+| I2C func | BME680 Pin | Raspberry Pi PIN |
+| -------- | ---------- | ---------------- |
+| 2-6V     | POW        | Vcc 5V (Pin 2)   |
+| SDA      | "SDA"      | I2C1 SDA (Pin 3) |
+| SCL      | "SCL"      | I2C1 SCL (Pin 5) |
+| GND      | GND        | Gnd      (Pin 6) |
+
+
 ## spi demo
 ```
 par_t1: 26203

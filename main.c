@@ -19,12 +19,18 @@ int main(void) {
 	int i;
 
 	/* 1. Assign functions for interacting with the device */
+#define BME_PROTOCOL_SPI 0   
+#if (BME_PROTOCOL_SPI == 0)
+	bme680.dev.init   = i2c_init;	
+	bme680.dev.read   = i2c_read;
+	bme680.dev.write  = i2c_write;
+	bme680.dev.deinit = i2c_deinit;
+	bme680.dev.sleep  = usleep;
 
-//	bme680.dev.init   = i2c_init;	
-//	bme680.dev.read   = i2c_read;
-//	bme680.dev.write  = i2c_write;
-//	bme680.dev.deinit = i2c_deinit;
+	/* 2. set the device mode */
+	mode =  BME680_MODE_INT   | BME680_I2C | BME680_ENABLE_GAS;
 
+#elif ( BME_PROTOCOL_SPI == 1)
 	bme680.dev.init   = spi_init;
 	bme680.dev.read   = spi_read;
 	bme680.dev.write  = spi_write;
@@ -33,8 +39,11 @@ int main(void) {
 	bme680.dev.sleep  = usleep;
 
 	/* 2. set the device mode */
-	mode = BME680_MODE_FLOAT | BME680_SPI | BME680_ENABLE_GAS;
-	/*     BME680_MODE_INT   | BME680_I2C; */
+	mode = BME680_MODE_FLOAT | BME680_SPI | BME680_ENABLE_GAS; 
+#else
+#error SPI (1) or I2C(0) not chosen
+#endif
+
 
 
 	/* 3. initialise dev func's, and check device id */

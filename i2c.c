@@ -16,7 +16,11 @@ Example I2C use on linux/raspberry pi
 #include "i2c.h"
 
 #define I2C_DEVICE "/dev/i2c-1"
-#define I2C_BME680_ADDRESS 0x77
+
+// Note if pimoroni break out board is used address is 0x76 if unsoldered addr bridge
+// if solder bridge made address is 0x77
+// Remember to enable i2c in raspi-config!
+#define I2C_BME680_ADDRESS 0x76
 
 static int fd;
 
